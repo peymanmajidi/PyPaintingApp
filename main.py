@@ -1,5 +1,8 @@
 from tkinter import *
 from tkinter import ttk
+from tkinter import filedialog
+from PIL import ImageGrab
+
 
 fillcolor = 'red'
     
@@ -38,6 +41,14 @@ def command(e):
     setcolor(color)
 
 
+def saveImage():
+    x=root.winfo_rootx() + 50
+    y=root.winfo_rooty()
+    x1=x+800
+    y1=y+700
+    file = filedialog.asksaveasfilename()
+    ImageGrab.grab().crop((x,y,x1,y1)).save(file + ".png")
+
 root = Tk()
 col = 1
 Button(root, text='قرمز',command= lambda: setcolor('red'), background = 'red').grid(row=0,column = col)
@@ -60,11 +71,14 @@ Button(root, text='سفید',command= lambda: setcolor('white'), background = 'w
 col +=1
 Button(root, text='مشکی',command= lambda: setcolor('black'), background = 'black', foreground = 'white').grid(row=0,column = col)
 
-canvas = Canvas(root, width= 800, height = 600 , background = 'white')
+canvas = Canvas(root, width= 700, height = 500 , background = 'white')
 canvas.grid(row = 1, column = 0, columnspan = 11)
 canvas.bind('<ButtonPress>', point)
 canvas.bind('<B1-Motion>',draw)
 canvas.bind('<B3-Motion>',eraser)
 canvas.bind('<B2-Motion>', lambda e: setBackColor())
+
+Button(root , text = 'ذخیره تصویر', command = saveImage).grid(row=2, column = 10)
+
 root.bind('<KeyPress>',command)
 root.mainloop()
