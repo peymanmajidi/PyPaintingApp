@@ -1,11 +1,9 @@
 from tkinter import *
 from tkinter import ttk
 from tkinter import filedialog
-from PIL import ImageGrab
-
 
 fillcolor = 'red'
-    
+
 def draw(e):
     global pre
     canvas.create_line(pre.x-2, pre.y-2, e.x+2, e.y+2, width = 15, fill = fillcolor)
@@ -18,7 +16,6 @@ def setcolor(color):
 
 def setBackColor():
     canvas.config(background = fillcolor)
-
 
 def eraser(e):
     global pre
@@ -40,16 +37,15 @@ def command(e):
         color = 'yellow'
     setcolor(color)
 
-
 def saveImage():
     x=root.winfo_rootx() + 50
     y=root.winfo_rooty()
     x1=x+800
     y1=y+700
     file = filedialog.asksaveasfilename()
-    ImageGrab.grab().crop((x,y,x1,y1)).save(file + ".png")
 
 root = Tk()
+root.title('80 lines code to have a painting app | @peyman.majidi')
 col = 1
 Button(root, text='قرمز',command= lambda: setcolor('red'), background = 'red').grid(row=0,column = col)
 col +=1
@@ -81,4 +77,4 @@ canvas.bind('<B2-Motion>', lambda e: setBackColor())
 Button(root , text = 'ذخیره تصویر', command = saveImage).grid(row=2, column = 10)
 
 root.bind('<KeyPress>',command)
-root.mainloop()
+root.mainloop() # Gitgub/peyman.majidi
